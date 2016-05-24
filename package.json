@@ -3,6 +3,9 @@
   "version": "0.1.1",
   "description": "RPC Server using socket.io",
   "main": "index.js",
+  "files" : [
+    "lib"
+  ],
   "scripts": {
     "test": "mocha --reporter spec"
   },

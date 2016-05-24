@@ -1,0 +1,21 @@
+{
+  "name": "socket.io-rpc-server",
+  "version": "0.0.0",
+  "description": "RPC Server using socket.io",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --reporter spec"
+  },
+  "author": "Ranjan Shrestha",
+  "license": "MIT",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.5.1",
+    "sinon": "^1.17.4",
+    "socket.io": "^1.4.6",
+    "socket.io-client": "^1.4.6"
+  },
+  "dependencies": {
+    "socket.io-rpc-common": "^1.0.0"
+  }
+}

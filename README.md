@@ -1,10 +1,10 @@
-### socket.io-rpc-server
-RPC Server using socket.io
+### socket.io-rmi-server
+RMI Server using socket.io
 
 ### Usage
 ```javascript
 const io = require('socket.io');
-const Server = require('socket.io-rpc-server');
+const Server = require('socket.io-rmi-server');
 
 class MyApplication {
   rpcMethod1() {

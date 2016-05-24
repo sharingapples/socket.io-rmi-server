@@ -1,7 +1,7 @@
 {
-  "name": "socket.io-rpc-server",
-  "version": "0.1.1",
-  "description": "RPC Server using socket.io",
+  "name": "socket.io-rmi-server",
+  "version": "0.0.0",
+  "description": "RMI Server using socket.io",
   "main": "index.js",
   "files" : [
     "lib"
@@ -12,7 +12,7 @@
   "author": "Ranjan Shrestha",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sharingapples/socket.io-rpc-server.git"
+    "url": "https://github.com/sharingapples/socket.io-rmi-server.git"
   },
   "license": "MIT",
   "devDependencies": {
@@ -23,6 +23,6 @@
     "socket.io-client": "^1.4.6"
   },
   "dependencies": {
-    "socket.io-rpc-common": "^1.0.1"
+    "socket.io-rmi": "^1.0.0"
   }
 }

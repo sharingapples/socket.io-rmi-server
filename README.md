@@ -1,4 +1,5 @@
-# RMI Server (RPC Server) [![npm package][npm-badge]][npm]
+# RMI Server (RPC Server)
+![NPM version](https://badge.fury.io/js/socket.io-rmi-server.svg)
 RMI Server is a simple RPC Server that works over awesome
 [socket.io](https://github.com/socket.io/socket.io) library to
 provide an intuitive programming paradigm that could be used

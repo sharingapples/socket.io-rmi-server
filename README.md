@@ -173,6 +173,7 @@ module.exports = ReturnableModule;
 // The EntryPoint module whose instance is created for RPC
 
 'use strict';
+
 const ReturnableModule = require('./ReturnableModule');
 
 class EntryPoint {
@@ -193,7 +194,7 @@ instance of the `ReturnableModule` by invoking `getTaskModule`, it can also call
 on the `addTask` method from the returned instance.
 
 ### Passing a callback
-The RPC method invokation can also include a callback method as a parameter.
+The RPC method invocation can also include a callback method as a parameter.
 The callback method would be invoked on the client side from the server side.
 ```js
 // Server side code
@@ -238,6 +239,7 @@ from the server asynchronously.
 ```js
 // The EventHandler class declaration on client side
 'use strict';
+
 const RMIClient = require('socket.io-rmi-client');
 
 class EventHandler extends RMIClient.EventHandler {

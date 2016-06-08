@@ -1,15 +1,19 @@
 # RMI Server (RPC Server)
 ![NPM version](https://badge.fury.io/js/socket.io-rmi-server.svg)
 
-RMI Server is a simple RPC Server that works over awesome
-[socket.io](https://github.com/socket.io/socket.io) library to
-provide an intuitive programming paradigm that could be used
-seamlessly either the code is being used standalone or is being
-invoked over a network.
+RMIServer is a simple RPC Server implementation that allows you to
+convert your existing classes to be used over network with very little or
+no change on your code base.
+
+Under the hood it uses the awesome
+[socket.io](https://github.com/socket.io/socket.io) library and uses
+its event propagation mechanism for making all the calls.
 
 The RMI Server has to be used in conjunction with its client
 counter part available at
-https://github.com/sharingapples/socket.io-rmi-client.
+https://github.com/sharingapples/socket.io-rmi-client. The client server
+combination allows you to write code without thinking much about the
+underlying network communication.
 
 ### Installation
 Using [npm](https://www.npmjs.com/):

@@ -1,5 +1,6 @@
 # RMI Server (RPC Server)
 ![NPM version](https://badge.fury.io/js/socket.io-rmi-server.svg)
+
 RMI Server is a simple RPC Server that works over awesome
 [socket.io](https://github.com/socket.io/socket.io) library to
 provide an intuitive programming paradigm that could be used
@@ -88,6 +89,8 @@ is discussed later.
 A class can be exposed to respond to multiple RPC calls with
 different types of parameters.
 ```js
+'use strict';
+
 class ExampleClass {
 
   modulus(p1, p2) {
@@ -118,6 +121,8 @@ it is always a good idea to return a Promise object from the
 RPC calls
 
 ```js
+'use strict';
+
 class ExampleClassPromised {
   modulus(p1, p2) {
     return Promise.resolve(p1 % p2);
@@ -140,13 +145,146 @@ ExampleClassPromised.map = {
 module.exports = ExampleClassPromised;
 ```
 
-### Returning a class object
+### Returning a callable RPC object
+It is also possible to return an instance of an object via an RPC call which
+can also make RPC call themselves. This is defined by the the return type
+provided in the map
+
+```js
+// An intermediate module whose instance is returned through the main
+// EntryPoint class
+
+'use strict';
+class TaskModule {
+  addTask(id, name, date) {
+    // Do the operation
+    return Promise.resolve(true);
+  }
+}
+
+ReturnableModule.map = {
+  'addTask': 'number',
+};
+
+module.exports = ReturnableModule;
+```
+
+```js
+// The EntryPoint module whose instance is created for RPC
+
+'use strict';
+const ReturnableModule = require('./ReturnableModule');
+
+class EntryPoint {
+  getTaskModule() {
+    return Promise.resolve(new ReturnableModule());
+  }
+}
+
+EntryPoint.map = {
+  // This is how the server identifies another RPC module
+  getTaskModule: ReturnableModule.map,
+};
+
+module.exports = EntryPoint;
+```
+The client starts the RPC call with the `EntryPoint` module but once it gets an
+instance of the `ReturnableModule` by invoking `getTaskModule`, it can also call
+on the `addTask` method from the returned instance.
 
 ### Passing a callback
+The RPC method invokation can also include a callback method as a parameter.
+The callback method would be invoked on the client side from the server side.
+```js
+// Server side code
+'use strict';
+
+class AsyncModule {
+  callWhenReady(name, callback) {
+    // Do the callback
+    callback(name);
+    // The method doesn't necessarily need to return anything
+  }
+}
+
+AsyncModule.map = {
+  callWhenReady: null, // Doesn't return anything
+};
+
+module.exports = AsyncModule;
+```
+
+```js
+// Client side code
+'use strict';
+
+// The client connects and get an instance of the RPC module
+// which could then be used
+function onConnected(asyncModule) {
+
+  // Do the RPC call
+  asyncModule.callWhenReady('John', function (name) {
+    // This callback is invoked through the server
+    console.log('RPC Callback returned ', name);
+  });
+}
+```
 
 ### Passing an event handler
+The RPC method also supports passing event handler as arguments. The methods
+prefixed with 'on' are considered as event callbacks and could be invoked
+from the server asynchronously.
 
+```js
+// The EventHandler class declaration on client side
+'use strict';
+const RMIClient = require('socket.io-rmi-client');
 
+class EventHandler extends RMIClient.EventHandler {
+  onAsyncEvent(arg1, arg2) {
+    console.log('Event raised from server with arguments ', arg1, arg2);
+  }
+
+  onNewUser(user) {
+    console.log('Event onPress from server', btn);
+  }
+}
+module.exports = EventHandler;
+```
+
+```js
+// The Client side usage
+'use strict';
+
+// Initialize the client
+// ...
+//
+function onConnected(instance) {
+  instance.setEventHandler(new EventHandler());
+}
+```
+
+```js
+// The server side class
+'use strict';
+
+class EventServiceProvider {
+  function setEventHandler(eventHandler) {
+    // The event handler could be stored and used later when an event occurs
+    this.eventHandler = eventHandler;
+  }
+
+  function onSomeEvent() {
+    this.eventHandler.onAsyncEvent('event', 'one');
+  }
+
+  function login(name, password) {
+    this.eventHandler.onLogin({ name: name });
+  }
+}
+
+module.exports = EventServiceProvider;
+```
 
 ### Future Enhancements
 The socket.io is a high level networking library which makes it

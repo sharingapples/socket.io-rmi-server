@@ -1,6 +1,6 @@
 {
   "name": "socket.io-rmi-server",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "RMI Server using socket.io",
   "main": "index.js",
   "files": [
@@ -23,6 +23,6 @@
     "socket.io-client": "^1.4.6"
   },
   "dependencies": {
-    "socket.io-rmi": "^1.0.0"
+    "socket.io-rmi": "^1.1.0"
   }
 }

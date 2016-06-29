@@ -1,6 +1,6 @@
 {
   "name": "socket.io-rmi-server",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "RMI Server using socket.io",
   "main": "index.js",
   "files": [
